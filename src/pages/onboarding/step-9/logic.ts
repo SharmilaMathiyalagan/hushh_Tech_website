@@ -2,6 +2,7 @@
  * Step 13 — All Business Logic
  * Bank details form, Plaid auto-fill, validation, Supabase upsert
  */
+import { encryptSensitiveData } from '../../../utils/cryptoUtils';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../../resources/config/config';
@@ -580,7 +581,8 @@ export const useStep13Logic = (): Step13Logic => {
       return;
     }
 
-    const encryptedAccountNumber = btoa(accountNumber);
+    // NEW - SECURE
+     const encryptedAccountNumber = await encryptSensitiveData(accountNumber);
 
     const { error: upsertError } = await upsertOnboardingData(user.id, {
       bank_name: bankName.trim(),
