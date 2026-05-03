@@ -35,3 +35,5 @@ export const encryptSensitiveData = async (plaintext: string): Promise<string> =
   return btoa(String.fromCharCode(...combined));
 };
 
+
+
